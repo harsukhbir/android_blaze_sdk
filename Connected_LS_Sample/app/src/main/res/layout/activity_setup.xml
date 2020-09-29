@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.SetupActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/tvPowerUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:text="Power Up the device and ensure the LED indicator is solid RED colour."
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp" />
+
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tvPowerUp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher_round"/>
+
+
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="If it is solid blue or Blinking red press and hold the reset button for 8 seconds"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_above="@+id/btnNext"
+        android:layout_below="@+id/image"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/corner_bg"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
