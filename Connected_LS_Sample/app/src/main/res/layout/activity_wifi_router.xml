@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.WifiRouterActivity">
+
+    <include layout="@layout/toolbar"/>
+
+
+    <TextView
+        android:id="@+id/tv_wifi_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@+id/toolbar"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Please ensure your mobile device can discover your preffered Wi-Fi network and Home Ultimate within 5 meter of your Wi-Fi router"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/wifi_spec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@+id/tv_wifi_text"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Home Ultimate can connect to a Wi-Fi router with the following specifications:"
+        android:textStyle="bold"
+        android:gravity="start"/>
+
+
+
+    <RelativeLayout
+        android:id="@+id/relative_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wifi_spec"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+
+        <ImageView
+            android:id="@+id/dot1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/dot"
+            android:tint="#FCD12A"
+            android:padding="5dp"
+            android:layout_centerVertical="true">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/wifi_spec1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_toEndOf="@+id/dot1"
+            android:textColor="#000000"
+            android:textSize="16sp"
+
+            android:text="Band 2.4GHz\n(5GHz is not supported)"
+            android:textStyle="bold"
+            android:gravity="start"/>
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative_one"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+
+        <ImageView
+            android:id="@+id/dot1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/dot"
+            android:tint="#FCD12A"
+            android:padding="5dp"
+            android:layout_centerVertical="true">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/wifi_spec2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_toEndOf="@+id/dot1"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:text="Security WPA/WPA2\n(WEP is not supported)"
+            android:textStyle="bold"
+            android:gravity="start"/>
+
+
+
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:gravity="center"
+        android:layout_below="@+id/relative_two"
+        android:background="@drawable/corner_bg"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

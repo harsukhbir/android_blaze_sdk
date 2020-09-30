@@ -10,13 +10,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activities.SetupActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.SensorActivity"></activity>
+        <activity android:name=".activities.InstallationSensorActivity" />
+        <activity android:name=".activities.WifiRouterActivity" />
+        <activity android:name=".activities.DiscoverWifiActivity" />
+        <activity android:name=".activities.CaptureLocationActivity" />
+        <activity android:name=".activities.SetupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!--
+            <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
     </application>
 
