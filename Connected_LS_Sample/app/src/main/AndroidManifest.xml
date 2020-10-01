@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blazeautomation.connected_ls_sample">
 
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:name=".MainApp"
         android:allowBackup="false"
@@ -15,21 +18,21 @@
         <activity android:name=".activities.WifiRouterActivity" />
         <activity android:name=".activities.DiscoverWifiActivity" />
         <activity android:name=".activities.CaptureLocationActivity" />
+
+
+
         <activity android:name=".activities.SetupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <!--
-            <activity android:name=".MainActivity">
+           <!-- <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+            </intent-filter>-->
         </activity>
     </application>
 
