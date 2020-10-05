@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,8 +11,10 @@
     <include layout="@layout/toolbar"/>
 
     <ScrollView
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnNext">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -41,7 +43,14 @@
                 android:textStyle="bold"
                 android:text="Motion Sensors"/>
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/motion_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+           <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -151,7 +160,7 @@
                     android:gravity="start"
                     android:text=""/>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
 
 
@@ -167,7 +176,16 @@
                 android:textStyle="bold"
                 android:text="Door Sensors"/>
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/door_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+
+           <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -249,7 +267,7 @@
                     android:gravity="start"
                     android:text=""/>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -263,7 +281,16 @@
                 android:textStyle="bold"
                 android:text="Temp/Humidity Sensors"/>
 
-            <LinearLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/temp_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+          <!--  <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -289,7 +316,7 @@
                     android:gravity="start"
                     android:text=""/>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -303,7 +330,17 @@
                 android:textStyle="bold"
                 android:text="Other"/>
 
-            <LinearLayout
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/other_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+           <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -372,23 +409,7 @@
 
             </LinearLayout>
 
-
-
-            <TextView
-                android:id="@+id/btnNext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Next"
-                android:gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/corner_bg"
-                android:layout_marginTop="30dp"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:padding="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"/>
-
+-->
 
 
 
@@ -397,5 +418,24 @@
     </ScrollView>
 
 
+    <TextView
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/corner_bg"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
 
-</LinearLayout>
+
+
+
+
+</RelativeLayout>
