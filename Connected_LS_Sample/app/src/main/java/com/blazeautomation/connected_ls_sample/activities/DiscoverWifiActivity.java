@@ -35,8 +35,7 @@ public class DiscoverWifiActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnNext:
-                startActivity(new Intent(context,WifiRouterActivity.class));
-
+                startActivity(new Intent(context,WiFiCredentialActivity.class));
                 break;
             case R.id.back_arrow:
                 onBackPressed();

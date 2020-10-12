@@ -90,7 +90,7 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnNext:
-                startActivity(new Intent(context, CaptureLocationActivity.class));
+                startActivity(new Intent(context, AddHubActivity.class));
 
                 break;
             case R.id.back_arrow:

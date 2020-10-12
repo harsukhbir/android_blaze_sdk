@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.blazeautomation.connected_ls_sample">
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
@@ -13,26 +18,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activities.SensorActivity"></activity>
+        <activity android:name=".activities.WiFiCredentialActivity"></activity>
+        <activity android:name=".activities.AddHubActivity" />
+        <activity android:name=".activities.SensorActivity" />
         <activity android:name=".activities.InstallationSensorActivity" />
         <activity android:name=".activities.WifiRouterActivity" />
         <activity android:name=".activities.DiscoverWifiActivity" />
         <activity android:name=".activities.CaptureLocationActivity" />
-
-
-
         <activity android:name=".activities.SetupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!--<activity android:name=".MainActivity">
+            <!--
+            <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
     </application>
 
