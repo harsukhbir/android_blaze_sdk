@@ -50,8 +50,9 @@ public class WifiRouterActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnNext:
-                // startActivity(new Intent(context,InstallationSensorActivity.class));
-                hubInstallaionApi();
+                //hubInstallaionApi();
+                startActivity(new Intent(context,CaptureLocationActivity.class));
+
 
                 break;
             case R.id.back_arrow:
@@ -74,6 +75,13 @@ public class WifiRouterActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 hideLoading();
+                if (response.code()==200){
+                    Toast.makeText(WifiRouterActivity.this, "Hub Install successfully", Toast.LENGTH_SHORT).show();
+                     startActivity(new Intent(context,CaptureLocationActivity.class));
+
+                }else {
+                    Toast.makeText(WifiRouterActivity.this, String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

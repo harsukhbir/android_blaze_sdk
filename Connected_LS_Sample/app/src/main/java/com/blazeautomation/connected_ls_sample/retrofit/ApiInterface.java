@@ -13,7 +13,6 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-
    /* @Headers({"Accept: application/json"})
     @POST("hubs/{id}/installation")
     Call<ResponseBody> install_hub(@Path("id") String id, @Query("installerId") String installerId, @Header("authorization") String auth);
@@ -21,5 +20,8 @@ public interface ApiInterface {
 
     @POST("hubs/{id}/installation")
     Call<ResponseBody> install_hub(@Header("authorization") String auth,@Path("id") String id, @Body HashMap<String, String> hashMap);
+
+    @POST("hubs/{id}/sensors")
+    Call<ResponseBody> addSensor(@Header("authorization") String auth,@Path("id") String id, @Body HashMap<String, String> hashMap);
 
 }
