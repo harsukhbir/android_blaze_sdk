@@ -33,9 +33,7 @@ public class CaptureLocationActivity extends BaseActivity implements View.OnClic
     private ImageView back_arrow, camera_icon;
     private static final int REQUEST_CAPTURE_IMAGE = 100;
     String encodedImage="";
-    String token = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJYelM3Y0tka1VXRm9mWVZUR2pYM0ZIbVVNSVQ1cnpGd2k2TW5LQktmYnI0In0.eyJleHAiOjE2MDI1ODAyNDUsImlhdCI6MTYwMjU3ODQ0NSwiYXV0aF90aW1lIjoxNjAyNTY3ODkyLCJqdGkiOiIyMTFiNTU1OC00MTc5LTQ2Y2YtYTgxMC02YTMzMDk2ZTM3ODYiLCJpc3MiOiJodHRwczovL2F1dGguZGV2LmRhdGFkcml2ZW5jYXJlLm5ldC9hdXRoL3JlYWxtcy9kZGMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzVjMDhhOWEtNTBhYy00NGMyLTk5YTYtMmE4OWU0MjkzODE4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZGRjLXdlYiIsIm5vbmNlIjoiYWRjMDI4MTUtMmQ5Ni00YWY3LThkYjMtMmZiM2Y1Yzg5ZDUwIiwic2Vzc2lvbl9zdGF0ZSI6ImIxZDZhYTM4LWM3ODEtNGRmZS05YWJmLTAxYzk5MzkyZjNiZSIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9hZG1pbi5kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cHM6Ly9kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cDovL2xvY2FsaG9zdDozMDAxIiwiaHR0cDovL2xvY2FsaG9zdDozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwic3VwZXJBZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoia2FyZWVtIn0.ZrYbUXvUbyOy84cBJAX0MLBbYPBgkRrkJjE2MEXAAaOfTAobiEfi6TzydssuZ8dQw1anu5zsnD6fbdywWdsyLj_H2Sk2IijqRIszonn8RDGOHf_IUegYU1oxBPYIaujGQem6WnyQu-YFebUwwUStA64YLSq6NSsLoaYP0XW74FeFML_ELz-be5Mj28bqhysLNUqRqEDEzb-DSpI4u5sHtk3mH4AM43BruuKeCwHYa3PWiA8_AzKlWpNkeIu0nOPw8bSF1EcT3d5ttegyYxvp--bJeoSXYDkXIApeuhRBkp1Y-Pkx457TEiyA9HHuPvsNbP_Ta6Ml8QvNu9Pl54y9BQ";
-
-
+    String token = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJYelM3Y0tka1VXRm9mWVZUR2pYM0ZIbVVNSVQ1cnpGd2k2TW5LQktmYnI0In0.eyJleHAiOjE2MDI2ODA4NTAsImlhdCI6MTYwMjY3OTA1MCwiYXV0aF90aW1lIjoxNjAyNjYzMzQwLCJqdGkiOiIwMWFjOGU2OS04MWYzLTRjMTctOTZiNi0yM2FmMzAzZmQ2MTEiLCJpc3MiOiJodHRwczovL2F1dGguZGV2LmRhdGFkcml2ZW5jYXJlLm5ldC9hdXRoL3JlYWxtcy9kZGMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzVjMDhhOWEtNTBhYy00NGMyLTk5YTYtMmE4OWU0MjkzODE4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZGRjLXdlYiIsIm5vbmNlIjoiZWY1NzYwM2EtY2MzOC00NjUxLTgzNjYtMDk4MzA0ZTYyZWJiIiwic2Vzc2lvbl9zdGF0ZSI6ImRhYjVhOGFhLWNhODMtNGEzZS05ZGU3LWQ3MTliMmY3ZWJlNiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9hZG1pbi5kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cHM6Ly9kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cDovL2xvY2FsaG9zdDozMDAxIiwiaHR0cDovL2xvY2FsaG9zdDozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwic3VwZXJBZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoia2FyZWVtIn0.riDSHuxTEuXRXuWeoXGSrZyvjIbd2ZkAQufK2CcxDwSnv4IrsnhIsuSLV-v2qM6NQdGy9qM9q3MJBEXL6oCMPNZktdxp_5ijZN0n-n1B8v5YlsSgZL1aDeMdIQfxmHz2D1dcUuwVo1Jd5vJ2eas59HBz_JZxKwOIdwkNvUXcgW1w6y94slEhfxTKnW68a5ZedLnYUV-1pO_l1y_KqOrxpiKyE9RNssh0IxL4MSBET6njaEXGo7h2-RMhtvGbCjd38mSaoRzOLMP0dR9DorZWYx4RpJWRzAFtY5jeQcUaQovKfUEQ-SKpNal7sH3AUpMVlMlL8fFhiu6WUb8gEOsibw";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,12 +76,11 @@ public class CaptureLocationActivity extends BaseActivity implements View.OnClic
     private void addSensorApi() {
         showLoading("Please Wait...");
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("installationPhoto", "encodedImage");
+        hashMap.put("installationPhoto", encodedImage);
         hashMap.put("location", "bathroom");
         hashMap.put("model", "doorv1");
         hashMap.put("pairingId", "string");
         hashMap.put("type", "door");
-        Log.e("mapppppppppp", String.valueOf(hashMap));
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ResponseBody> call = apiInterface.addSensor(token, "C44F33354375", hashMap);
@@ -94,7 +91,7 @@ public class CaptureLocationActivity extends BaseActivity implements View.OnClic
                 hideLoading();
                 if (response.code() == 200) {
                     Toast.makeText(CaptureLocationActivity.this, "Sensor added successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(context, InstallationSensorActivity.class));
+                    startActivity(new Intent(context, SetupActivity.class));
 
                 } else {
                     Toast.makeText(CaptureLocationActivity.this, String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
@@ -131,7 +128,6 @@ public class CaptureLocationActivity extends BaseActivity implements View.OnClic
                 Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
                 camera_icon.setImageBitmap(imageBitmap);
                 encodedImage = encodeImage(imageBitmap);
-                Log.e("BASE_64_IMAGE", encodedImage);
 
             }
         }
@@ -141,8 +137,7 @@ public class CaptureLocationActivity extends BaseActivity implements View.OnClic
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] b = baos.toByteArray();
-        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
-
+        String encImage = Base64.encodeToString(b, Base64.NO_WRAP);
         return encImage;
     }
 

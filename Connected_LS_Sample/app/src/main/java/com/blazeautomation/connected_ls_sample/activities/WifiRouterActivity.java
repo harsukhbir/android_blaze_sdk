@@ -28,8 +28,7 @@ public class WifiRouterActivity extends BaseActivity implements View.OnClickList
     Context context = this;
     private TextView btnNext;
     private ImageView back_arrow;
-    String token = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJYelM3Y0tka1VXRm9mWVZUR2pYM0ZIbVVNSVQ1cnpGd2k2TW5LQktmYnI0In0.eyJleHAiOjE2MDI1MDg1NjQsImlhdCI6MTYwMjUwNjc2NCwiYXV0aF90aW1lIjoxNjAyNTAyMTEwLCJqdGkiOiI2NzA3OGJiNi1mZmNmLTQ0NWYtYjQzMC03Y2NmOGIwMzc3MzgiLCJpc3MiOiJodHRwczovL2F1dGguZGV2LmRhdGFkcml2ZW5jYXJlLm5ldC9hdXRoL3JlYWxtcy9kZGMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzVjMDhhOWEtNTBhYy00NGMyLTk5YTYtMmE4OWU0MjkzODE4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZGRjLXdlYiIsIm5vbmNlIjoiM2IwZDA3NmItZDMyMy00ZWQ4LThhMTgtMmY3OTk5MmQwNzM2Iiwic2Vzc2lvbl9zdGF0ZSI6ImI0MjgxZDJiLTg2NGMtNDQ1MS04YmE3LTZmZjYyMDA1ODZkNSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9hZG1pbi5kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cHM6Ly9kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cDovL2xvY2FsaG9zdDozMDAxIiwiaHR0cDovL2xvY2FsaG9zdDozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwic3VwZXJBZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoia2FyZWVtIn0.G-1WStEIHXlnXmzkGnqRfCHkrgHu80cnRP5pb305zdPnN0YjBNxluxPZWLxc8Ibkso_CWrweB-CEyw5-addgNOoMt5bZgWPCycC_JLZxzUso88bnH5nLiGPXthSOKuF__2kKGkS0paenTaSrc39PCyT7AaPzjEHDAZkzQJlcBdvKfZBE6Oa30Ft0RhGvLKeExef3kdo1iaPQ1QKHm5DlBbSylYIP5yxy4VP6axdwBNHUihfXrVV3F1cMLTBjl1cJjZvJONC_IK3QduLolLLBpwWEuMORvt9j9gK1aN0EQZ7TzT8w45jawmhDJV6ZuEmFMmCw79lUthMgBztiF5j_2A";
-
+    String token = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJYelM3Y0tka1VXRm9mWVZUR2pYM0ZIbVVNSVQ1cnpGd2k2TW5LQktmYnI0In0.eyJleHAiOjE2MDI2ODA4NTAsImlhdCI6MTYwMjY3OTA1MCwiYXV0aF90aW1lIjoxNjAyNjYzMzQwLCJqdGkiOiIwMWFjOGU2OS04MWYzLTRjMTctOTZiNi0yM2FmMzAzZmQ2MTEiLCJpc3MiOiJodHRwczovL2F1dGguZGV2LmRhdGFkcml2ZW5jYXJlLm5ldC9hdXRoL3JlYWxtcy9kZGMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzVjMDhhOWEtNTBhYy00NGMyLTk5YTYtMmE4OWU0MjkzODE4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZGRjLXdlYiIsIm5vbmNlIjoiZWY1NzYwM2EtY2MzOC00NjUxLTgzNjYtMDk4MzA0ZTYyZWJiIiwic2Vzc2lvbl9zdGF0ZSI6ImRhYjVhOGFhLWNhODMtNGEzZS05ZGU3LWQ3MTliMmY3ZWJlNiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9hZG1pbi5kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cHM6Ly9kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cDovL2xvY2FsaG9zdDozMDAxIiwiaHR0cDovL2xvY2FsaG9zdDozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwic3VwZXJBZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoia2FyZWVtIn0.riDSHuxTEuXRXuWeoXGSrZyvjIbd2ZkAQufK2CcxDwSnv4IrsnhIsuSLV-v2qM6NQdGy9qM9q3MJBEXL6oCMPNZktdxp_5ijZN0n-n1B8v5YlsSgZL1aDeMdIQfxmHz2D1dcUuwVo1Jd5vJ2eas59HBz_JZxKwOIdwkNvUXcgW1w6y94slEhfxTKnW68a5ZedLnYUV-1pO_l1y_KqOrxpiKyE9RNssh0IxL4MSBET6njaEXGo7h2-RMhtvGbCjd38mSaoRzOLMP0dR9DorZWYx4RpJWRzAFtY5jeQcUaQovKfUEQ-SKpNal7sH3AUpMVlMlL8fFhiu6WUb8gEOsibw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +49,7 @@ public class WifiRouterActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnNext:
-                //hubInstallaionApi();
-                startActivity(new Intent(context,CaptureLocationActivity.class));
+                hubInstallaionApi();
 
 
                 break;
@@ -75,11 +73,11 @@ public class WifiRouterActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 hideLoading();
-                if (response.code()==200){
-                    Toast.makeText(WifiRouterActivity.this, "Hub Install successfully", Toast.LENGTH_SHORT).show();
-                     startActivity(new Intent(context,CaptureLocationActivity.class));
+                if (response.code() == 200) {
+                    Toast.makeText(WifiRouterActivity.this, "Hub Installed successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(context, InstallationSensorActivity.class));
 
-                }else {
+                } else {
                     Toast.makeText(WifiRouterActivity.this, String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
                 }
             }

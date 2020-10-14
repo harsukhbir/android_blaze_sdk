@@ -96,7 +96,7 @@ public class InstallationSensorActivity extends AppCompatActivity implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnNext:
-                startActivity(new Intent(context,SensorActivity.class));
+                startActivity(new Intent(context,CaptureLocationActivity.class));
 
                 break;
             case R.id.back_arrow:

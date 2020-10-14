@@ -2,9 +2,12 @@ package com.blazeautomation.connected_ls_sample.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -25,6 +28,7 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
+
         findId();
         setTextColor();
         setTextColor2();
@@ -90,7 +94,10 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnNext:
-                startActivity(new Intent(context, AddHubActivity.class));
+
+                requestPermission();
+
+
 
                 break;
             case R.id.back_arrow:
@@ -103,5 +110,22 @@ public class SetupActivity extends AppCompatActivity implements View.OnClickList
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 123 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startActivity(new Intent(context, AddHubActivity.class));
+        }
+    }
+
+    private void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 123);
+        } else {
+            startActivity(new Intent(context, AddHubActivity.class));
+        }
     }
 }
