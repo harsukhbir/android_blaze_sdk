@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dashboard"
+    app:startDestination="@id/nav_welcome">
+    <action
+        android:id="@+id/action_to_nav_dashboard"
+        app:destination="@id/nav_dashboard"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/dashboard"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_to_nav_hub_list"
+        app:destination="@id/nav_hub_list"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/dashboard"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_to_nav_login"
+        app:destination="@id/nav_login"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/dashboard"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/nav_add"
+        android:name="com.blazeautomation.connected_ls_sample.AddDeviceFragment"
+        android:label="Add a Device"
+        tools:layout="@layout/fragment_add_blaze_device">
+        <action
+            android:id="@+id/action_nav_add_to_nav_pair"
+            app:destination="@id/nav_pair" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_pair"
+        android:name="com.blazeautomation.connected_ls_sample.PairDeviceFragment"
+        android:label="Pairing"
+        tools:layout="@layout/fragment_pair" />
+    <fragment
+        android:id="@+id/nav_device_hub"
+        android:name="com.blazeautomation.connected_ls_sample.DeviceFragment"
+        android:label="Hub"
+        tools:layout="@layout/fragment_device">
+        <action
+            android:id="@+id/action_nav_device_hub_to_nav_un_pair"
+            app:destination="@id/nav_un_pair" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_un_pair"
+        android:name="com.blazeautomation.connected_ls_sample.DeleteDeviceFragment"
+        android:label="Un Pairing"
+        tools:layout="@layout/fragment_delete_device" />
+    <fragment
+        android:id="@+id/nav_welcome"
+        android:name="com.blazeautomation.connected_ls_sample.WelcomeFragment"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_welcome">
+
+        <action
+            android:id="@+id/action_nav_welcome_to_nav_login"
+            app:destination="@id/nav_login" />
+        <action
+            android:id="@+id/action_nav_welcome_to_nav_signup"
+            app:destination="@id/nav_signup" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_signup"
+        android:name="com.blazeautomation.connected_ls_sample.CreateAccountFragment"
+        android:label="Sign up"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_nav_signup_to_nav_verify"
+            app:destination="@id/nav_verify"
+            app:popUpTo="@id/nav_verify"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_forgot"
+        android:name="com.blazeautomation.connected_ls_sample.ForgotFragment"
+        android:label="Forgot password"
+        tools:layout="@layout/fragment_forgot_pasword">
+        <action
+            android:id="@+id/action_nav_forgot_to_nav_login"
+            app:destination="@id/nav_login"
+            app:popUpTo="@id/nav_login"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_verify"
+        android:name="com.blazeautomation.connected_ls_sample.VerifyUserFragment"
+        android:label="Verify"
+        tools:layout="@layout/fragment_verify_user" />
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.blazeautomation.connected_ls_sample.LoginInfoFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_nav_login_to_nav_forgot"
+            app:destination="@id/nav_forgot" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_hub_reset"
+        android:name="com.blazeautomation.connected_ls_sample.ResetFragment"
+        android:label="Hub Reset"
+        tools:layout="@layout/fragment_reset_hub" />
+    <fragment
+        android:id="@+id/nav_hub_settings"
+        android:name="com.blazeautomation.connected_ls_sample.SettingsFragment"
+        android:label="Hub Settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_nav_hub_settings_to_nav_hub_reset"
+            app:destination="@id/nav_hub_reset" />
+
+        <action
+            android:id="@+id/action_nav_hub_settings_to_nav_ssid"
+            app:destination="@id/nav_ssid"
+            app:popUpTo="@id/nav_ssid"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_user_profile"
+        android:name="com.blazeautomation.connected_ls_sample.UserProfileFragment"
+        android:label="User Profile"
+        tools:layout="@layout/fragment_profile_settings" />
+    <fragment
+        android:id="@+id/nav_hub_list"
+        android:name="com.blazeautomation.connected_ls_sample.HubListFragment"
+        android:label="Select Hub"
+        tools:layout="@layout/fragment_hubs_list">
+        <action
+            android:id="@+id/action_nav_hub_list_to_nav_manual"
+            app:destination="@id/nav_manual" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.blazeautomation.connected_ls_sample.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_user_profile"
+            app:destination="@id/nav_user_profile" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_hub_settings"
+            app:destination="@id/nav_hub_settings" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_hub_list"
+            app:destination="@id/nav_hub_list" />
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_device_hub"
+            app:destination="@id/nav_device_hub" />
+        <!--<action
+            android:id="@+id/action_nav_dashboard_to_nav_scan"
+            app:destination="@id/nav_scan" />-->
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_add"
+            app:destination="@id/nav_add"
+            app:popUpTo="@id/nav_add" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_manual"
+        android:name="com.blazeautomation.connected_ls_sample.ManualFragment"
+        android:label="Hub Setup"
+        tools:layout="@layout/fragment_manual">
+        <action
+            android:id="@+id/action_nav_success_to_nav_ssid"
+            app:destination="@id/nav_ssid"
+            app:popUpTo="@id/nav_ssid"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_list"
+        android:name="com.blazeautomation.connected_ls_sample.ListFragment"
+        android:label=""
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_nav_list_to_nav_manual_ssid"
+            app:destination="@id/nav_manual_ssid" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_ssid"
+        android:name="com.blazeautomation.connected_ls_sample.SSIDFragment"
+        android:label="Credentials"
+        tools:layout="@layout/fragment_ssid">
+        <!-- <action
+             android:id="@+id/action_nav_ssid_to_nav_instruct"
+             app:destination="@id/nav_instruct"
+             app:popUpTo="@id/nav_add"
+             app:popUpToInclusive="true" />-->
+        <action
+            android:id="@+id/action_nav_ssid_to_nav_list"
+            app:destination="@id/nav_list" />
+        <action
+            android:id="@+id/action_nav_ssid_to_nav_hub_status"
+            app:destination="@id/nav_hub_status"
+            app:popUpTo="@id/nav_hub_status"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_hub_status"
+        android:name="com.blazeautomation.connected_ls_sample.CheckingHubStatusFragment"
+        android:label="Checking Hub Status"
+        tools:layout="@layout/fragment_checking_hub_status">
+        <action
+            android:id="@+id/action_nav_hub_status_to_nav_complete"
+            app:destination="@id/nav_enter_hub_name"
+            app:popUpTo="@id/nav_enter_hub_name"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_nav_hub_status_to_nav_settings"
+            app:destination="@id/nav_hub_settings"
+            app:popUpTo="@id/nav_hub_settings"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_manual_ssid"
+        android:name="com.blazeautomation.connected_ls_sample.ManualSSIDFragment"
+        android:label="Hub Setup"
+        tools:layout="@layout/fragment_manual_ssid">
+        <action
+            android:id="@+id/action_nav_manual_ssid_to_nav_ssid"
+            app:destination="@id/nav_ssid"
+            app:popUpTo="@id/nav_ssid"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_enter_hub_name"
+        android:name="com.blazeautomation.connected_ls_sample.EnterHubNameFragment"
+        android:label="Hub Name"
+        tools:layout="@layout/fragment_completed">
+        <action
+            android:id="@+id/action_nav_enter_hub_name_to_nav_manual"
+            app:destination="@id/nav_manual"
+            app:popUpTo="@id/nav_manual"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

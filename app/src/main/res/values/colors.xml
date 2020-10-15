@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/ls_selected</color>
+    <color name="colorPrimaryDark">@color/ls_selected</color>
+    <color name="colorAccent">#FFF</color>
+    <color name="transparent">#0000</color>
+    <color name="ls_selected">#19bed4</color>
+    <color name="white">#FFF</color>
+    <color name="body_color">#404040</color>
+
+    <color name="colorWhite">#fff</color>
+    <color name="mode_bottom_sheet_background">#fff</color>
+    <color name="color_default">#404040</color>
+    <color name="colorAccentBlaze">#1bbed4</color>
+    <color name="colorPrimaryDarkGradient">#65E0f0</color>
+    <color name="ls_gray_1">#000000</color>
+    <color name="ls_gray_2">#8c8c8c</color>
+    <color name="ls_gray_3">#acacac</color>
+</resources>

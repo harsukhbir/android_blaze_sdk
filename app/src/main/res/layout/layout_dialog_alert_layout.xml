@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@drawable/border_alert_dialog_round_10_white"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/txtAlertTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="16sp"
+        android:gravity="center"
+        android:padding="5sp"
+        android:textColor="@color/color_default"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtAlertMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginRight="16sp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:padding="10sp"
+        android:textColor="@color/color_default"
+        android:textSize="12sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccentBlaze"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnOk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:text="@string/ok"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccentBlaze"
+            android:textSize="18sp" />
+    </LinearLayout>
+</LinearLayout>
