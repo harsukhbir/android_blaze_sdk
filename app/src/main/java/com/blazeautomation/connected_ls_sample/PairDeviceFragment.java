@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,9 @@ import com.BlazeAutomation.ConnectedLS.BlazeCallBack;
 import com.BlazeAutomation.ConnectedLS.BlazeResponse;
 import com.BlazeAutomation.ConnectedLS.BlazeSDK;
 import com.BlazeAutomation.ConnectedLS.DeviceType;
+import com.blazeautomation.connected_ls_sample.localdatabase.DatabaseClient;
+import com.blazeautomation.connected_ls_sample.localdatabase.PhotoModel;
+import com.blazeautomation.connected_ls_sample.model.PhotoSaveModel;
 import com.blazeautomation.connected_ls_sample.retrofit.ApiClient;
 import com.blazeautomation.connected_ls_sample.retrofit.ApiInterface;
 import com.google.android.material.textfield.TextInputEditText;
@@ -51,7 +56,9 @@ public class PairDeviceFragment extends NavigationXFragment {
     private TextView b_one_id, node_id;
     private ImageView imageView;
     private String encodedImage = "";
-    String token = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJYelM3Y0tka1VXRm9mWVZUR2pYM0ZIbVVNSVQ1cnpGd2k2TW5LQktmYnI0In0.eyJleHAiOjE2MDI3Njc0NTksImlhdCI6MTYwMjc2NTY1OSwiYXV0aF90aW1lIjoxNjAyNzYxMzY3LCJqdGkiOiI4NjQwZWEyMS1iMjM3LTRkN2MtODY4Ni03OTIxOTg5YTkyOTgiLCJpc3MiOiJodHRwczovL2F1dGguZGV2LmRhdGFkcml2ZW5jYXJlLm5ldC9hdXRoL3JlYWxtcy9kZGMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzVjMDhhOWEtNTBhYy00NGMyLTk5YTYtMmE4OWU0MjkzODE4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZGRjLXdlYiIsIm5vbmNlIjoiNzg5YmYwYTYtNzJiZi00ZDQ4LTkyOWItMGQ2NWIyZjNmOGI2Iiwic2Vzc2lvbl9zdGF0ZSI6IjE5OWQ2N2QwLTU5NzctNGY4NC04ZGM2LTM2MmM5OGQ1MjdiZCIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9hZG1pbi5kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cHM6Ly9kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cDovL2xvY2FsaG9zdDozMDAxIiwiaHR0cDovL2xvY2FsaG9zdDozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwic3VwZXJBZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoia2FyZWVtIn0.L34jBuqkkFQjMLPsMUJiA7ZDD6JDqtMchabC5nHdpgqnNkA3z3vIyMLui4l-T5unB6QQLXCAENJaHKk3S39iMJVPJNcEMjAlgj6zBXQyShdqXQ5XdTByq1WdND6qfdpeDuqy4fzelThvsmwSecFOtaBrSFbq6nTOc_8H8JW_aRMc4gmQB-eLrSeDn4PQ72TuPIjOlnIDk7oz6pgDVsYc0FX1P-qeX3EsJPAnh7-f1l735VMeDKUx0eSC10LVEOg1s52XMgA6Fjx86eteutOTCgzu8YGKW9Jgg5jrIvFdddCP5N7yTK1cfcl9EEUjcirBRmLaL1R7qOHQuCaRem2MXg";
+    private String idd = "", hub_model = "", type = "", location = "", photo_url = "", installed = "", hubId = "";
+    private String device_location="";
+
 
     public PairDeviceFragment() {
     }
@@ -76,7 +83,15 @@ public class PairDeviceFragment extends NavigationXFragment {
 
         if (arg != null) {
             categoryId = arg.getString("cat_type", null);
+
+            /*get device location from add device */
+
+            device_location = arg.getString("location", null);
+
         }
+
+
+
         if (categoryId == null) {
             goBack();
             return;
@@ -164,22 +179,31 @@ public class PairDeviceFragment extends NavigationXFragment {
         progress.showProgress(getChildFragmentManager(), getString(R.string.creating_blaze_account));
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("installationPhoto", encodedImage);
-        hashMap.put("location", "bathroom");
+        hashMap.put("location", device_location);
         hashMap.put("model", "doorv1");
         hashMap.put("pairingId", "string");
         hashMap.put("type", "door");
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseBody> call = apiInterface.addSensor(token, "C44F33354375", hashMap);
+        Call<PhotoSaveModel> call = apiInterface.addSensor(/*token,*/ "C44F33354375", hashMap);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<PhotoSaveModel>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<PhotoSaveModel> call, Response<PhotoSaveModel> response) {
                 progress.dismissProgress();
 
                 if (response.code() == 200) {
-                    Toast.makeText(getActivity(), "Sensor added successfully", Toast.LENGTH_SHORT).show();
-                    gotoF(R.id.action_to_nav_dashboard);
+
+                    idd = response.body().getId();
+                    hub_model = response.body().getModel();
+                    type = response.body().getType();
+                    location = response.body().getLocation();
+                    photo_url = response.body().getInstallationPhotoUrl();
+                    installed = response.body().getInstalled();
+                    hubId = response.body().getHubId();
+
+
+                    saveTask();
 
                 } else {
                     Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
@@ -187,10 +211,8 @@ public class PairDeviceFragment extends NavigationXFragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<PhotoSaveModel> call, Throwable t) {
                 progress.dismissProgress();
-
-
             }
         });
 
@@ -282,5 +304,47 @@ public class PairDeviceFragment extends NavigationXFragment {
             }
         });
     }
+
+
+    private void saveTask() {
+
+        // final File file = new File(audioSavePathInDevice);
+
+
+        class SaveTask extends AsyncTask<Void, Void, Void> {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                //saving photo sensor data
+                PhotoModel model = new PhotoModel();
+                model.setID(idd);
+                model.setModel(hub_model);
+                model.setType(type);
+                model.setLocation(location);
+                model.setInstallationPhotoUrl(photo_url);
+                model.setInstalled(installed);
+                model.setHubId(hubId);
+
+                //adding to database
+                DatabaseClient.getInstance(getActivity()).getAppDatabase()
+                        .taskDao()
+                        .insertHubs(model);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                Toast.makeText(getActivity(), "Sensor added successfully", Toast.LENGTH_SHORT).show();
+                gotoF(R.id.action_to_nav_dashboard);
+
+            }
+        }
+
+        SaveTask st = new SaveTask();
+        st.execute();
+    }
+
 
 }

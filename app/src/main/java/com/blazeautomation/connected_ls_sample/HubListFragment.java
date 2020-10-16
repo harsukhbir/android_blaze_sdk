@@ -3,7 +3,9 @@ package com.blazeautomation.connected_ls_sample;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +20,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.BlazeAutomation.ConnectedLS.BlazeCallBack;
 import com.BlazeAutomation.ConnectedLS.BlazeResponse;
 import com.BlazeAutomation.ConnectedLS.BlazeSDK;
+import com.blazeautomation.connected_ls_sample.localdatabase.DatabaseClient;
+import com.blazeautomation.connected_ls_sample.localdatabase.PhotoModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class HubListFragment extends NavigationXFragment {
     private static final int REQ_PERMISSION = 54;
     private HubAdapter adapter;
     private ArrayList<BlazeHub> list = new ArrayList<>();
+    private ArrayList<PhotoModel> list2 = new ArrayList<>();
     private ProgressFragment progress;
     private AlertFragment alert;
 
@@ -37,31 +44,61 @@ public class HubListFragment extends NavigationXFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getStoredHubs();
+
         progress = new ProgressFragment();
         alert = new AlertFragment();
-        adapter = new HubAdapter(context, list);
+        adapter = new HubAdapter(context, list2);
+    }
+
+    private void getStoredHubs() {
+        class GetTasks extends AsyncTask<Void, Void, List<PhotoModel>> {
+
+            @Override
+            protected List<PhotoModel> doInBackground(Void... voids) {
+                List<PhotoModel> taskList = DatabaseClient
+                        .getInstance(getActivity())
+                        .getAppDatabase()
+                        .taskDao()
+                        .getAllHubs();
+                return taskList;
+            }
+
+            @Override
+            protected void onPostExecute(List<PhotoModel> tasks) {
+                super.onPostExecute(tasks);
+
+                for (int i = 0; i < tasks.size(); i++) {
+                    list2.addAll(tasks);
+
+                }
+
+                adapter.notifyDataSetChanged();
+
+                Log.e("original_list", String.valueOf(tasks.size()));
+                Log.e("stored_list", String.valueOf(list2.size()));
+            }
+        }
+
+        GetTasks gt = new GetTasks();
+        gt.execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_hubs_list, container, false);
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
         RecyclerView hubList = view.findViewById(R.id.hub_list);
         hubList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         hubList.setAdapter(adapter);
         TextView hubs_txt = view.findViewById(R.id.hubs_txt);
-        hubs_txt.setText(getString(R.string.hubs_available, list.size()));
-
-
-
+        hubs_txt.setText(getString(R.string.hubs_available, list2.size()));
 
 
         /**view.findViewById(R.id.logout).setOnClickListener(v -> BlazeSDK.logout(new BlazeCallBack() {
@@ -125,9 +162,6 @@ public class HubListFragment extends NavigationXFragment {
         });*/
 
 
-
-
-
     }
 
     private void gotoManualScreen() {
@@ -148,9 +182,10 @@ public class HubListFragment extends NavigationXFragment {
 
     class HubAdapter extends RecyclerView.Adapter<HubAdapter.HubHolder> {
         private final Context context;
-        private ArrayList<BlazeHub> list;
+        //private ArrayList<BlazeHub> list;
+        private ArrayList<PhotoModel> list;
 
-        public HubAdapter(Context context, ArrayList<BlazeHub> list) {
+        public HubAdapter(Context context, ArrayList<PhotoModel> list) {
             this.context = context;
             this.list = list;
         }
@@ -163,12 +198,15 @@ public class HubListFragment extends NavigationXFragment {
 
         @Override
         public void onBindViewHolder(@NonNull HubAdapter.HubHolder holder, int position) {
-            BlazeHub hub = list.get(position);
+
+            holder.hub_id.setText(list.get(position).getHubId());
+            holder.name.setText(list.get(position).getType());
+           /* BlazeHub hub = list.get(position);
             holder.hub_id.setText(hub.getHubId());
-            holder.name.setText(hub.getName());
+            holder.name.setText(hub.getName());*/
             holder.itemView.setOnClickListener(v -> {
-                model.setSelectedHub(hub.getHubId());
-                model.setSelectedHubName(hub.getName());
+                model.setSelectedHub(list.get(position).getHubId());
+                model.setSelectedHubName(list.get(position).getType());
                 gotoF(R.id.action_to_nav_dashboard);
             });
         }

@@ -1,5 +1,6 @@
 package com.blazeautomation.connected_ls_sample;
 
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -61,12 +62,22 @@ public class MainActivity extends AppCompatActivity implements OnNavigationXCont
 
         /*-----------removed login page on 15 oct 2020---------------*/
 
+
+
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_content);
         if (navHostFragment == null)
             throw new RuntimeException("navHostFragment is null");
         controller = navHostFragment.getNavController();
         NavGraph graph = controller.getGraph();
-        graph.setStartDestination(R.id.nav_hub_list);
+       /* if (model.isUserAvailable()) {
+            if (!TextUtils.isEmpty(model.hubId))
+                graph.setStartDestination(R.id.nav_dashboard);
+            else*/
+                graph.setStartDestination(R.id.nav_hub_list);
+       /* } else {
+            graph.setStartDestination(R.id.nav_welcome);
+        }   */
+
         controller.setGraph(graph);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(controller.getGraph()).build();

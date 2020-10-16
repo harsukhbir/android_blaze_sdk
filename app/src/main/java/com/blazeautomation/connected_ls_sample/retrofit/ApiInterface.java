@@ -1,5 +1,7 @@
 package com.blazeautomation.connected_ls_sample.retrofit;
 
+import com.blazeautomation.connected_ls_sample.model.PhotoSaveModel;
+
 import java.util.HashMap;
 
 import okhttp3.ResponseBody;
@@ -17,9 +19,9 @@ public interface ApiInterface {
 */
 
     @POST("hubs/{id}/installation")
-    Call<ResponseBody> install_hub(@Header("authorization") String auth, @Path("id") String id, @Body HashMap<String, String> hashMap);
+    Call<ResponseBody> install_hub(/*@Header("authorization") String auth,*/ @Path("id") String id, @Body HashMap<String, String> hashMap);
 
     @POST("hubs/{id}/sensors")
-    Call<ResponseBody> addSensor(@Header("authorization") String auth, @Path("id") String id, @Body HashMap<String, String> hashMap);
+    Call<PhotoSaveModel> addSensor(/*@Header("authorization") String auth,*/ @Path("id") String id, @Body HashMap<String, String> hashMap);
 
 }
