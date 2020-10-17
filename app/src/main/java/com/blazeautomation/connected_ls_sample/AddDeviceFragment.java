@@ -41,18 +41,37 @@ public class AddDeviceFragment extends NavigationXFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.bathroom).setOnClickListener(v -> {
-            pairDevice(AddDeviceFragment.ZIGBEE_MOTION, "bathroom");
+        view.findViewById(R.id.bathroom1).setOnClickListener(v -> {
+            pairDevice(AddDeviceFragment.ZIGBEE_MOTION, "bathroom1");
+        });
+        view.findViewById(R.id.bathroom2).setOnClickListener(v -> {
+            pairDevice(AddDeviceFragment.ZIGBEE_MOTION, "bathroom2");
         });
         view.findViewById(R.id.livingroom).setOnClickListener(v -> {
             pairDevice(ZIGBEE_MOTION, "livingroom");
         });
-        view.findViewById(R.id.fridge).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_DOOR, "fridge");
-        });
         view.findViewById(R.id.hallway).setOnClickListener(v -> {
             pairDevice(ZIGBEE_MOTION, "hallway");
         });
+        view.findViewById(R.id.kitchen).setOnClickListener(v -> {
+            pairDevice(ZIGBEE_MOTION, "kitchen");
+        });
+        view.findViewById(R.id.front_door).setOnClickListener(v -> {
+            pairDevice(ZIGBEE_DOOR, "frontdoor");
+        });
+        view.findViewById(R.id.back_door).setOnClickListener(v -> {
+            pairDevice(ZIGBEE_DOOR, "backdoor");
+        });
+        view.findViewById(R.id.fridge).setOnClickListener(v -> {
+            pairDevice(ZIGBEE_DOOR, "fridge");
+        });
+        view.findViewById(R.id.bathroom_humidity).setOnClickListener(v -> {
+            pairDevice(ZIGBEE_TEMP_HUMIDITY, "bathroom");
+        });
+        view.findViewById(R.id.sos).setOnClickListener(v -> {
+            pairDevice(ZIGBEE_SOS, "sos");
+        });
+
     }
 
     private void pairDevice(String cat_type, String location) {

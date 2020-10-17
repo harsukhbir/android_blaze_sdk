@@ -58,6 +58,7 @@ public class PairDeviceFragment extends NavigationXFragment {
     private String encodedImage = "";
     private String idd = "", hub_model = "", type = "", location = "", photo_url = "", installed = "", hubId = "";
     private String device_location="";
+    String hub_name="";
 
 
     public PairDeviceFragment() {
@@ -71,8 +72,7 @@ public class PairDeviceFragment extends NavigationXFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pair, container, false);
     }
 
@@ -81,12 +81,16 @@ public class PairDeviceFragment extends NavigationXFragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle arg = getArguments();
 
+        //hub_name=model.getHubName();
+
         if (arg != null) {
             categoryId = arg.getString("cat_type", null);
 
             /*get device location from add device */
 
             device_location = arg.getString("location", null);
+
+            Log.e("device_location",device_location);
 
         }
 
@@ -201,6 +205,7 @@ public class PairDeviceFragment extends NavigationXFragment {
                     photo_url = response.body().getInstallationPhotoUrl();
                     installed = response.body().getInstalled();
                     hubId = response.body().getHubId();
+                    hub_name=model.getHubName();
 
 
                     saveTask();
@@ -325,6 +330,7 @@ public class PairDeviceFragment extends NavigationXFragment {
                 model.setInstallationPhotoUrl(photo_url);
                 model.setInstalled(installed);
                 model.setHubId(hubId);
+                model.setHub_name(hub_name);
 
                 //adding to database
                 DatabaseClient.getInstance(getActivity()).getAppDatabase()

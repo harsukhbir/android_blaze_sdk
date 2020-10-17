@@ -28,6 +28,16 @@ public class PhotoModel implements Serializable {
     private String installed;
     @ColumnInfo(name = "hubId")
     private String hubId;
+    @ColumnInfo(name = "hub_name")
+    private String hub_name;
+
+    public String getHub_name() {
+        return hub_name;
+    }
+
+    public void setHub_name(String hub_name) {
+        this.hub_name = hub_name;
+    }
 
     public int getId() {
         return id;

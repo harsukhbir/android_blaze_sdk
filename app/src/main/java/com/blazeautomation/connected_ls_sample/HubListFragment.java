@@ -44,8 +44,7 @@ public class HubListFragment extends NavigationXFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getStoredHubs();
-
+        getStoredHubs();
         progress = new ProgressFragment();
         alert = new AlertFragment();
         adapter = new HubAdapter(context, list2);
@@ -67,14 +66,15 @@ public class HubListFragment extends NavigationXFragment {
             @Override
             protected void onPostExecute(List<PhotoModel> tasks) {
                 super.onPostExecute(tasks);
-
-                for (int i = 0; i < tasks.size(); i++) {
-                    list2.addAll(tasks);
-
-                }
-
+                list2.clear();
+                list2.addAll(tasks);
                 adapter.notifyDataSetChanged();
 
+               /* for (int i = 0; i < tasks.size(); i++) {
+                    list2.addAll(tasks);
+                }
+                adapter.notifyDataSetChanged();
+*/
                 Log.e("original_list", String.valueOf(tasks.size()));
                 Log.e("stored_list", String.valueOf(list2.size()));
             }
@@ -94,6 +94,8 @@ public class HubListFragment extends NavigationXFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         RecyclerView hubList = view.findViewById(R.id.hub_list);
         hubList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         hubList.setAdapter(adapter);
@@ -200,13 +202,13 @@ public class HubListFragment extends NavigationXFragment {
         public void onBindViewHolder(@NonNull HubAdapter.HubHolder holder, int position) {
 
             holder.hub_id.setText(list.get(position).getHubId());
-            holder.name.setText(list.get(position).getType());
+            holder.name.setText(list.get(position).getHub_name());
            /* BlazeHub hub = list.get(position);
             holder.hub_id.setText(hub.getHubId());
             holder.name.setText(hub.getName());*/
             holder.itemView.setOnClickListener(v -> {
                 model.setSelectedHub(list.get(position).getHubId());
-                model.setSelectedHubName(list.get(position).getType());
+                model.setSelectedHubName(list.get(position).getHub_name());
                 gotoF(R.id.action_to_nav_dashboard);
             });
         }

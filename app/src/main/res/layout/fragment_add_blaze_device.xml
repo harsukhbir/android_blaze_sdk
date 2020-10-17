@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/padding">
-
-    <androidx.appcompat.widget.AppCompatTextView
+<!--old sensor layout commented-->
+  <!--  <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/bathroom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -90,5 +90,227 @@
         android:background="@color/color_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hallway" />-->
+
+    <!--new layout with new sensor list-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bathroom1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Bathroom 1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bathroom2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Bathroom 2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bathroom1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/livingroom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Living Room"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bathroom2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hallway"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Hallway"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/livingroom" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/kitchen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Kitchen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hallway" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/front_door"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Front Door"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kitchen" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/back_door"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Back Door"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/front_door" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/fridge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Fridge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_door" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bathroom_humidity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="Bathroom Humidity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fridge" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:text="SOS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bathroom_humidity" />
+
+
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bathroom1" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bathroom2" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/livingroom" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/livingroom" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hallway" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hallway" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kitchen" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/front_door" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_door" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fridge" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bathroom_humidity" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.75dp"
+        android:background="@color/color_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sos" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
