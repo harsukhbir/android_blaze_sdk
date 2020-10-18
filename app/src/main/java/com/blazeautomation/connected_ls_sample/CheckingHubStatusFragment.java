@@ -76,23 +76,11 @@ public class CheckingHubStatusFragment extends NavigationXFragment {
                 public void onError(BlazeResponse blazeResponse) {
 
                     progress.dismissProgress();
-                    status.setText("Online");
-                    btnNext.setEnabled(true);
-                    hub_online_msg.setVisibility(View.VISIBLE);
-                    btnNext.setAlpha(1f);
-                    if (!model.isInSetup) {
-                        alert.setCancelButtonVisibility(View.GONE);
-                        alert.setOkButtonListener(getString(R.string.ok), v -> gotoF(R.id.action_nav_hub_status_to_nav_settings));
-                        alert.showAlertMessage(getChildFragmentManager(), "Change access point is completed successfully.");
-                    }
-
-                    /**progress.dismissProgress();
                     status.setText("Offline");
                     alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
                     btnNext.setEnabled(false);
                     hub_online_msg.setVisibility(View.GONE);
                     btnNext.setAlpha(0.3f);
-                     */
                 }
             });
         });

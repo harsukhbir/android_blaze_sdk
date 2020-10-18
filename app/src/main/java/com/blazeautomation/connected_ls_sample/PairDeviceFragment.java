@@ -129,9 +129,8 @@ public class PairDeviceFragment extends NavigationXFragment {
              return;
              }*/
 
-            //addDevice(arg.getString("location", null));
             if (encodedImage != null && !encodedImage.equalsIgnoreCase("")) {
-                addSensorApi();
+                addDevice(arg.getString("location", null));
             } else {
                 Toast.makeText(context, "Please upload image", Toast.LENGTH_SHORT).show();
             }
@@ -208,7 +207,9 @@ public class PairDeviceFragment extends NavigationXFragment {
 
 
     private void addSensorApi() {
+
         progress.showProgress(getChildFragmentManager(), getString(R.string.creating_blaze_account));
+
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("installationPhoto", encodedImage);
         hashMap.put("location", device_location);
@@ -218,7 +219,7 @@ public class PairDeviceFragment extends NavigationXFragment {
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<PhotoSaveModel> call = apiInterface.addSensor(/*token,*/ "C44F33354375", hashMap);
+        Call<PhotoSaveModel> call = apiInterface.addSensor(/*token,*/ model.hubId, hashMap);
 
         call.enqueue(new Callback<PhotoSaveModel>() {
             @Override
@@ -239,7 +240,6 @@ public class PairDeviceFragment extends NavigationXFragment {
 
                     Toast.makeText(getActivity(), "Sensor added successfully", Toast.LENGTH_SHORT).show();
                     gotoF(R.id.action_to_nav_dashboard);
-
 
                 } else {
                     Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
@@ -269,9 +269,7 @@ public class PairDeviceFragment extends NavigationXFragment {
             public void onSuccess(BlazeResponse blazeResponse) {
                 progress.dismissProgress();
                 if (blazeResponse.getStatus()) {
-                    // TODO Add DDC API call /hub/{id}/sensors
-                    alert.setOkButtonListener(getString(R.string.ok), v -> gotoF(R.id.action_to_nav_dashboard));
-                    alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
+                    addSensorApi();
                 } else {
                     Loggers.error("_add_error", blazeResponse);
                     alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
@@ -282,19 +280,9 @@ public class PairDeviceFragment extends NavigationXFragment {
             @Override
             public void onError(BlazeResponse blazeResponse) {
 
-                progress.dismissProgress();
-                if (blazeResponse.getStatus()) {
-                    // TODO Add DDC API call /hub/{id}/sensors
-                    alert.setOkButtonListener(getString(R.string.ok), v -> gotoF(R.id.action_to_nav_dashboard));
-                    alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
-                } else {
-                    Loggers.error("_add_error", blazeResponse);
-                    alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
-                }
-
-                /**Loggers.error("_add_error", blazeResponse);
+                Loggers.error("_add_error", blazeResponse);
                  progress.dismissProgress();
-                 alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());*/
+                 alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
             }
         });
     }
@@ -324,19 +312,10 @@ public class PairDeviceFragment extends NavigationXFragment {
             @Override
             public void onError(BlazeResponse blazeResponse) {
 
-                progress.dismissProgress();
-
-                nodeId = "test";
-                bOneId = "test";
-                b_one_id.setText(bOneId);
-                node_id.setText(nodeId);
-                add_lay.setVisibility(View.VISIBLE);
-
-                /**Loggers.error("_pair_error", blazeResponse);
+                Loggers.error("_pair_error", blazeResponse);
                  progress.dismissProgress();
                  add_lay.setVisibility(View.GONE);
                  alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
-                 */
             }
         });
     }

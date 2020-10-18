@@ -85,53 +85,62 @@ public class EnterHubNameFragment extends NavigationXFragment {
             });
         });*/
 
-
-
-
         /*calling installation api  on 15 oct 2020*/
         view.findViewById(R.id.btnNext).setOnClickListener(v -> {
+
             String str = pwd.getText().toString().trim();
+
             if (TextUtils.isEmpty(str)) {
                 pwd_lay.setError("Please enter a name for the Hub.");
                 return;
             } else
-                hub_name=str;
-                hub_id="C44F33354375";
                 pwd_lay.setError(null);
+
             progress.showProgress(getChildFragmentManager(), getString(R.string.creating_blaze_account));
-            HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put("installerId", "android");
 
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            Call<ResponseBody> call = apiInterface.install_hub(/*token,*/ "C44F33354375", hashMap);
+            BlazeSDK.addHub(model.hubId, str, new BlazeCallBack() {
 
-            call.enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    progress.dismissProgress();
-                    if (response.code() == 200) {
-                        Toast.makeText(getActivity(), "Hub Installed successfully", Toast.LENGTH_SHORT).show();
-                        model.setSelectedHubName(str);
-                        saveTask();
+                public void onSuccess(BlazeResponse blazeResponse) {
 
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("installerId", "android");
 
-                        gotoF(R.id.action_to_nav_dashboard);
+                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                    Call<ResponseBody> call = apiInterface.install_hub(/*token,*/ model.hubId, hashMap);
 
-                    } else {
-                        Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
-                    }
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            progress.dismissProgress();
+                            if (response.code() == 200) {
+                                Toast.makeText(getActivity(), "Hub Installed successfully", Toast.LENGTH_SHORT).show();
+                                model.setSelectedHubName(str);
+                                saveTask();
+                                gotoF(R.id.action_to_nav_dashboard);
+
+                            } else {
+                                Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                            progress.dismissProgress();
+                            alert.showAlertMessage(getChildFragmentManager(), "failure");
+
+                        }
+                    });
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                public void onError(BlazeResponse blazeResponse) {
                     progress.dismissProgress();
-                    alert.showAlertMessage(getChildFragmentManager(), "failure");
-
+                    alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
                 }
             });
         });
-
     }
 
 
@@ -148,13 +157,13 @@ public class EnterHubNameFragment extends NavigationXFragment {
             protected Void doInBackground(Void... voids) {
 
                 //saving photo sensor data
-                PhotoModel model = new PhotoModel();
-                model.setHubId(hub_id);
-                model.setHub_name(hub_name);
+                PhotoModel hub = new PhotoModel();
+                hub.setHubId(model.hubId);
+                hub.setHub_name(model.hubName);
                 //adding to database
                 DatabaseClient.getInstance(getActivity()).getAppDatabase()
                         .taskDao()
-                        .insertHubs(model);
+                        .insertHubs(hub);
                 return null;
             }
 

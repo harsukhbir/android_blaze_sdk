@@ -79,8 +79,8 @@ public class ManualFragment extends NavigationXFragment {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQ_PERM);
             return;
         }
-       // String ssid = BlazeNetworkUtils.getWifiSSID(context);
-        String ssid = "Home-Ultimate(MyHub)";
+
+        String ssid = BlazeNetworkUtils.getWifiSSID(context);
 
         if (TextUtils.equals(CONN_TYPE_GPRS, ssid)) {
             Toast.makeText(context, "Please Turn off mobile data.", Toast.LENGTH_SHORT).show();
@@ -106,13 +106,7 @@ public class ManualFragment extends NavigationXFragment {
             public void onError(BlazeResponse blazeResponse) {
 
                 progress.dismissProgress();
-                model.hubId = model.ssid;
-                gotoF(R.id.action_nav_success_to_nav_ssid);
-
-                /**
-                progress.dismissProgress();
                 alertDialog.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
-                 */
             }
         });
     }

@@ -120,17 +120,8 @@ public class SSIDFragment extends NavigationXFragment {
                     public void onError(BlazeResponse blazeResponse) {
 
                         progressDialog.dismissProgress();
-                        if (!model.isInSetup) {
-                            alertDialog.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
-                        } else
-                            alertDialog.showAlertMessage(getChildFragmentManager(), getString(R.string.app_name),
-                                    getString(R.string.connect_mobile_to_home_msg));
-                        alertDialog.setOkButtonListener(getString(R.string.ok), v -> gotoF(R.id.action_nav_ssid_to_nav_hub_status));
-
-                        /**progressDialog.dismissProgress();
                         alertDialog.setOkButtonListener(getString(R.string.ok), model.isInSetup ? v -> goToSettings() : null);
                         alertDialog.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
-                         */
                     }
                 };
                 if (!model.isInSetup) {
