@@ -42,39 +42,39 @@ public class AddDeviceFragment extends NavigationXFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.bathroom1).setOnClickListener(v -> {
-            pairDevice(AddDeviceFragment.ZIGBEE_MOTION, "bathroom1");
+            pairDevice(AddDeviceFragment.ZIGBEE_MOTION, "bathroom1","motion","motionv1");
         });
         view.findViewById(R.id.bathroom2).setOnClickListener(v -> {
-            pairDevice(AddDeviceFragment.ZIGBEE_MOTION, "bathroom2");
+            pairDevice(AddDeviceFragment.ZIGBEE_MOTION, "bathroom2","motion","motionv1");
         });
         view.findViewById(R.id.livingroom).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_MOTION, "livingroom");
+            pairDevice(ZIGBEE_MOTION, "livingroom","motion","motionv1");
         });
         view.findViewById(R.id.hallway).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_MOTION, "hallway");
+            pairDevice(ZIGBEE_MOTION, "hallway","motion","motionv1");
         });
         view.findViewById(R.id.kitchen).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_MOTION, "kitchen");
+            pairDevice(ZIGBEE_MOTION, "kitchen","motion","motionv1");
         });
         view.findViewById(R.id.front_door).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_DOOR, "frontdoor");
+            pairDevice(ZIGBEE_DOOR, "frontdoor","door","doorv1");
         });
         view.findViewById(R.id.back_door).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_DOOR, "backdoor");
+            pairDevice(ZIGBEE_DOOR, "backdoor","door","doorv1");
         });
         view.findViewById(R.id.fridge).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_DOOR, "fridge");
+            pairDevice(ZIGBEE_DOOR, "fridge","door","door");
         });
         view.findViewById(R.id.bathroom_humidity).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_TEMP_HUMIDITY, "bathroom");
+            pairDevice(ZIGBEE_TEMP_HUMIDITY, "bathroom","temp","tempv1");
         });
         view.findViewById(R.id.sos).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_SOS, "sos");
+            pairDevice(ZIGBEE_SOS, "sos","sos","sosv1");
         });
 
     }
 
-    private void pairDevice(String cat_type, String location) {
+    private void pairDevice(String cat_type, String location,String type,String hub_model) {
         progress.showProgress(getChildFragmentManager(), getString(R.string.please_wait));
         BlazeSDK.checkHubStatus(model.hubId, new BlazeCallBack() {
             @Override
@@ -83,6 +83,8 @@ public class AddDeviceFragment extends NavigationXFragment {
                 Bundle b = new Bundle();
                 b.putString("cat_type", cat_type);
                 b.putString("location", location);
+                b.putString("type", type);
+                b.putString("hub_model", hub_model);
                 gotoF(R.id.action_nav_add_to_nav_pair, b);
             }
 
@@ -93,6 +95,8 @@ public class AddDeviceFragment extends NavigationXFragment {
                 Bundle b = new Bundle();
                 b.putString("cat_type", cat_type);
                 b.putString("location", location);
+                b.putString("type", type);
+                b.putString("hub_model", hub_model);
                 gotoF(R.id.action_nav_add_to_nav_pair, b);
 
                 /**

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_croping"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ls_gray_3">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:titleTextAppearance="?android:textAppearanceMedium"
+            app:titleTextColor="@color/white"
+            android:background="@color/colorAccentBlaze"
+            android:layout_height="wrap_content">
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:ellipsize="end"
+            android:visibility="visible"
+            android:textSize="16sp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tvtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="CROP"
+            android:ellipsize="end"
+            android:visibility="visible"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/done"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_alignParentEnd="true">
+            <TextView
+                android:id="@+id/tvDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/done"
+                android:ellipsize="end"
+                android:visibility="visible"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.steelkiwi.cropiwa.CropIwaView
+            android:id="@+id/crop_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:ci_dynamic_aspect_ratio="true"
+            app:ci_draw_grid="false"
+            app:ci_aspect_ratio_w="16"
+            app:ci_aspect_ratio_h="32"
+            app:ci_initial_position="centerInside"
+            app:ci_crop_shape="rectangle"
+            app:ci_min_crop_width="300dp"
+            app:ci_min_crop_height="500dp"
+            app:ci_border_width="2dp"
+            app:ci_corner_width="5dp"
+            app:ci_corner_color="@color/end_side"
+            app:ci_grid_color="@color/start_side"
+            app:ci_overlay_color="#00000000"
+            app:ci_scale_enabled="true"
+            app:ci_translation_enabled="true"
+            android:visibility="gone"
+            />
+
+        <com.steelkiwi.cropiwa.CropIwaView
+            android:id="@+id/circle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:ci_dynamic_aspect_ratio="true"
+            app:ci_draw_grid="false"
+            app:ci_aspect_ratio_w="100"
+            app:ci_aspect_ratio_h="100"
+            app:ci_initial_position="centerInside"
+            app:ci_crop_shape="oval"
+            app:ci_min_crop_width="70dp"
+            app:ci_min_crop_height="70dp"
+            app:ci_border_width="2dp"
+            app:ci_overlay_color="#00000000"
+            android:visibility="gone"
+            app:ci_scale_enabled="true"
+            app:ci_translation_enabled="true"
+            />
+
+
+        <com.steelkiwi.cropiwa.CropIwaView
+            android:id="@+id/square_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:ci_dynamic_aspect_ratio="true"
+            app:ci_draw_grid="false"
+            app:ci_aspect_ratio_w="300"
+            app:ci_aspect_ratio_h="300"
+            app:ci_initial_position="centerInside"
+            app:ci_crop_shape="rectangle"
+            app:ci_min_crop_width="200dp"
+            app:ci_min_crop_height="200dp"
+            app:ci_border_width="2dp"
+            app:ci_overlay_color="#00000000"
+            android:visibility="gone"
+            app:ci_scale_enabled="true"
+            app:ci_translation_enabled="true"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

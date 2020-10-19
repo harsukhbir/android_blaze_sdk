@@ -16,4 +16,8 @@
     <color name="ls_gray_1">#000000</color>
     <color name="ls_gray_2">#8c8c8c</color>
     <color name="ls_gray_3">#acacac</color>
+    <color name="start_side">#fe696a</color>
+    <color name="end_side">#c01d4a</color>
+
+
 </resources>

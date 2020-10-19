@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -23,20 +25,28 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 
 import com.BlazeAutomation.ConnectedLS.BlazeCallBack;
 import com.BlazeAutomation.ConnectedLS.BlazeResponse;
 import com.BlazeAutomation.ConnectedLS.BlazeSDK;
 import com.BlazeAutomation.ConnectedLS.DeviceType;
+import com.blazeautomation.connected_ls_sample.croping.Controller;
+import com.blazeautomation.connected_ls_sample.croping.Croping;
 import com.blazeautomation.connected_ls_sample.localdatabase.DatabaseClient;
 import com.blazeautomation.connected_ls_sample.localdatabase.PhotoModel;
 import com.blazeautomation.connected_ls_sample.model.PhotoSaveModel;
 import com.blazeautomation.connected_ls_sample.retrofit.ApiClient;
 import com.blazeautomation.connected_ls_sample.retrofit.ApiInterface;
+import com.blazeautomation.connected_ls_sample.utils.Alert;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import okhttp3.ResponseBody;
@@ -57,8 +67,10 @@ public class PairDeviceFragment extends NavigationXFragment {
     private ImageView imageView;
     private String encodedImage = "";
     private String idd = "", hub_model = "", type = "", location = "", photo_url = "", installed = "", hubId = "";
-    private String device_location="";
-    String hub_name="";
+    private String device_location = "", device_type = "", device_model = "";
+    String hub_name = "";
+    private File camProfilePic;
+    File file;
 
 
     public PairDeviceFragment() {
@@ -90,10 +102,13 @@ public class PairDeviceFragment extends NavigationXFragment {
 
             device_location = arg.getString("location", null);
 
-            Log.e("device_location",device_location);
+            device_type = arg.getString("type", null);
+
+            device_model = arg.getString("hub_model", null);
+
+            Log.e("device_location", device_location);
 
         }
-
 
 
         if (categoryId == null) {
@@ -150,43 +165,96 @@ public class PairDeviceFragment extends NavigationXFragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+
+
         if (requestCode == 123 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             openCameraIntent();
         }
     }
 
     private void openCameraIntent() {
-        Intent pictureIntent = new Intent(
-                MediaStore.ACTION_IMAGE_CAPTURE
-        );
-        if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(pictureIntent,
-                    1);
+
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            try {
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                camProfilePic = new File(Controller.getImagePath(), timeStamp + "post.png");
+                Uri photoURI = FileProvider.getUriForFile(getActivity(), "com.blazeautomation.connected_ls_sample"+".provider", camProfilePic);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(cameraIntent, 502);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert.showLog("Exception", "openCamera Exception-- " + e.toString() + "  " + e.getMessage());
+            }
         }
+
+        /*Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(pictureIntent, 1);
+        }*/
+
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 &&
-                resultCode == RESULT_OK) {
+       /* if (requestCode == 1 && resultCode == RESULT_OK) {
             if (data != null && data.getExtras() != null) {
+
                 Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
                 imageView.setImageBitmap(imageBitmap);
                 encodedImage = encodeImage(imageBitmap);
 
             }
+        }*/
+
+        switch (requestCode) {
+
+            case 502:
+                if (resultCode == RESULT_OK & camProfilePic != null) {
+                    String path = camProfilePic.getPath();
+                    Log.e("CAMERA_PATH", path);
+                    Intent intent = new Intent(getActivity(), Croping.class);
+                    intent.putExtra("PROFILE", path);
+                    intent.putExtra("CAMERA", "CAMERA");
+                    startActivityForResult(intent, 303);
+                }
+                break;
+
+
+            case 303:
+                if (resultCode == RESULT_OK & data != null) {
+                    Alert.showLog("EDIT_PROFILE", "EDIT_PROFILE_PATH_AYAAA");
+                    setImageafterCrop(data.getExtras().get("PATH").toString());
+                }
+                break;
         }
+
+
     }
+
+
+
+    private void setImageafterCrop(String s) {
+        file = new File(s);
+        Log.e("FILEEEEEEEEE", String.valueOf(file));
+    }
+
+
 
     private void addSensorApi() {
         progress.showProgress(getChildFragmentManager(), getString(R.string.creating_blaze_account));
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("installationPhoto", encodedImage);
         hashMap.put("location", device_location);
-        hashMap.put("model", "doorv1");
-        hashMap.put("pairingId", "string");
-        hashMap.put("type", "door");
+        hashMap.put("model", device_model);
+        hashMap.put("pairingId", bOneId);
+        hashMap.put("type", device_type);
+
+        Log.e("parameters", String.valueOf(hashMap));
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<PhotoSaveModel> call = apiInterface.addSensor(/*token,*/ "C44F33354375", hashMap);
@@ -205,10 +273,11 @@ public class PairDeviceFragment extends NavigationXFragment {
                     photo_url = response.body().getInstallationPhotoUrl();
                     installed = response.body().getInstalled();
                     hubId = response.body().getHubId();
-                    hub_name=model.getHubName();
+                    hub_name = model.getHubName();
 
+                    Toast.makeText(getActivity(), "Sensor added successfully", Toast.LENGTH_SHORT).show();
+                    gotoF(R.id.action_to_nav_dashboard);
 
-                    saveTask();
 
                 } else {
                     Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
@@ -308,48 +377,6 @@ public class PairDeviceFragment extends NavigationXFragment {
                  */
             }
         });
-    }
-
-
-    private void saveTask() {
-
-        // final File file = new File(audioSavePathInDevice);
-
-
-        class SaveTask extends AsyncTask<Void, Void, Void> {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-
-                //saving photo sensor data
-                PhotoModel model = new PhotoModel();
-                model.setID(idd);
-                model.setModel(hub_model);
-                model.setType(type);
-                model.setLocation(location);
-                model.setInstallationPhotoUrl(photo_url);
-                model.setInstalled(installed);
-                model.setHubId(hubId);
-                model.setHub_name(hub_name);
-
-                //adding to database
-                DatabaseClient.getInstance(getActivity()).getAppDatabase()
-                        .taskDao()
-                        .insertHubs(model);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                Toast.makeText(getActivity(), "Sensor added successfully", Toast.LENGTH_SHORT).show();
-                gotoF(R.id.action_to_nav_dashboard);
-
-            }
-        }
-
-        SaveTask st = new SaveTask();
-        st.execute();
     }
 
 
