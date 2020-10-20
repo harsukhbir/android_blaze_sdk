@@ -1,24 +1,21 @@
 package com.blazeautomation.connected_ls_sample;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.media.Image;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,14 +28,9 @@ import com.BlazeAutomation.ConnectedLS.BlazeCallBack;
 import com.BlazeAutomation.ConnectedLS.BlazeResponse;
 import com.BlazeAutomation.ConnectedLS.BlazeSDK;
 import com.BlazeAutomation.ConnectedLS.DeviceType;
-import com.blazeautomation.connected_ls_sample.croping.Controller;
-import com.blazeautomation.connected_ls_sample.croping.Croping;
-import com.blazeautomation.connected_ls_sample.localdatabase.DatabaseClient;
-import com.blazeautomation.connected_ls_sample.localdatabase.PhotoModel;
 import com.blazeautomation.connected_ls_sample.model.PhotoSaveModel;
 import com.blazeautomation.connected_ls_sample.retrofit.ApiClient;
 import com.blazeautomation.connected_ls_sample.retrofit.ApiInterface;
-import com.blazeautomation.connected_ls_sample.utils.Alert;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -49,7 +41,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,6 +62,7 @@ public class PairDeviceFragment extends NavigationXFragment {
     String hub_name = "";
     private File camProfilePic;
     File file;
+    String currentphotopath = "";
 
 
     public PairDeviceFragment() {
@@ -167,7 +159,6 @@ public class PairDeviceFragment extends NavigationXFragment {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
 
-
         if (requestCode == 123 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             openCameraIntent();
         }
@@ -175,25 +166,18 @@ public class PairDeviceFragment extends NavigationXFragment {
 
     private void openCameraIntent() {
 
-
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            try {
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                camProfilePic = new File(Controller.getImagePath(), timeStamp + "post.png");
-                Uri photoURI = FileProvider.getUriForFile(getActivity(), "com.blazeautomation.connected_ls_sample"+".provider", camProfilePic);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(cameraIntent, 502);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Alert.showLog("Exception", "openCamera Exception-- " + e.toString() + "  " + e.getMessage());
-            }
+        String fileName = "photo";
+        File storageDirectory = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        try {
+            File imagefile = File.createTempFile(fileName, ".jpg", storageDirectory);
+            currentphotopath = imagefile.getAbsolutePath();
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Uri imageuri = FileProvider.getUriForFile(getActivity(), "com.blazeautomation.connected_ls_sample.fileprovider", imagefile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageuri);
+            startActivityForResult(intent, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        /*Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(pictureIntent, 1);
-        }*/
 
 
     }
@@ -201,48 +185,26 @@ public class PairDeviceFragment extends NavigationXFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       /* if (requestCode == 1 && resultCode == RESULT_OK) {
-            if (data != null && data.getExtras() != null) {
 
-                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-                imageView.setImageBitmap(imageBitmap);
-                encodedImage = encodeImage(imageBitmap);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            // if (data != null && data.getExtras() != null) {
+            Bitmap imageBitmap = BitmapFactory.decodeFile(currentphotopath);
+            //Bitmap imageBitmap = (Bitmap)data.getExtras().get("data");
+            Bitmap rotated_bitmap = RotateBitmap(imageBitmap, 90);
 
-            }
-        }*/
+            imageView.setImageBitmap(rotated_bitmap);
+            encodedImage = encodeImage(rotated_bitmap);
 
-        switch (requestCode) {
-
-            case 502:
-                if (resultCode == RESULT_OK & camProfilePic != null) {
-                    String path = camProfilePic.getPath();
-                    Log.e("CAMERA_PATH", path);
-                    Intent intent = new Intent(getActivity(), Croping.class);
-                    intent.putExtra("PROFILE", path);
-                    intent.putExtra("CAMERA", "CAMERA");
-                    startActivityForResult(intent, 303);
-                }
-                break;
-
-
-            case 303:
-                if (resultCode == RESULT_OK & data != null) {
-                    Alert.showLog("EDIT_PROFILE", "EDIT_PROFILE_PATH_AYAAA");
-                    setImageafterCrop(data.getExtras().get("PATH").toString());
-                }
-                break;
+            // }
         }
-
-
     }
 
 
-
-    private void setImageafterCrop(String s) {
-        file = new File(s);
-        Log.e("FILEEEEEEEEE", String.valueOf(file));
+    public static Bitmap RotateBitmap(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
-
 
 
     private void addSensorApi() {
@@ -254,7 +216,6 @@ public class PairDeviceFragment extends NavigationXFragment {
         hashMap.put("pairingId", bOneId);
         hashMap.put("type", device_type);
 
-        Log.e("parameters", String.valueOf(hashMap));
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<PhotoSaveModel> call = apiInterface.addSensor(/*token,*/ "C44F33354375", hashMap);
@@ -274,6 +235,7 @@ public class PairDeviceFragment extends NavigationXFragment {
                     installed = response.body().getInstalled();
                     hubId = response.body().getHubId();
                     hub_name = model.getHubName();
+
 
                     Toast.makeText(getActivity(), "Sensor added successfully", Toast.LENGTH_SHORT).show();
                     gotoF(R.id.action_to_nav_dashboard);
@@ -378,6 +340,5 @@ public class PairDeviceFragment extends NavigationXFragment {
             }
         });
     }
-
 
 }
