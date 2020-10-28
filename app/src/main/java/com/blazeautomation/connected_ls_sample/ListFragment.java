@@ -25,8 +25,8 @@ public class ListFragment extends NavigationXFragment {
     private static final String TAG = "_LIST";
     private ArrayList<JsonObject> arrayList = new ArrayList<>();
     private HubWifiListAdapter adapter;
-    private ProgressFragment progressDialog;
-    private AlertFragment alertDialog;
+    private MessageProgressDialog progressDialog;
+    private MessageAlertDialog alertDialog;
 
     public ListFragment() {
     }
@@ -35,8 +35,8 @@ public class ListFragment extends NavigationXFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        progressDialog = new ProgressFragment();
-        alertDialog = new AlertFragment();
+        progressDialog = new MessageProgressDialog(requireActivity());
+        alertDialog = new MessageAlertDialog(requireActivity());
         adapter = new HubWifiListAdapter(context, arrayList, (adapterView, view, position, l) -> {
             Loggers.error(TAG, "selected SSID:-:" + arrayList.get(position));
             JsonObject obj = arrayList.get(position);

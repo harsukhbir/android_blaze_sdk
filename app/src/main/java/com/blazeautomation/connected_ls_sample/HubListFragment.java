@@ -35,8 +35,8 @@ public class HubListFragment extends NavigationXFragment {
     private HubAdapter adapter;
     private ArrayList<BlazeHub> list = new ArrayList<>();
     private ArrayList<PhotoModel> list2 = new ArrayList<>();
-    private ProgressFragment progress;
-    private AlertFragment alert;
+    private MessageProgressDialog progress;
+    private MessageAlertDialog alert;
 
     public HubListFragment() {
     }
@@ -45,8 +45,8 @@ public class HubListFragment extends NavigationXFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getStoredHubs();
-        progress = new ProgressFragment();
-        alert = new AlertFragment();
+        progress = new MessageProgressDialog(requireActivity());
+        alert = new MessageAlertDialog(requireActivity());
         adapter = new HubAdapter(context, list2);
     }
 

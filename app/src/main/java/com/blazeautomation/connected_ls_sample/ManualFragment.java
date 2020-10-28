@@ -27,8 +27,8 @@ public class ManualFragment extends NavigationXFragment {
     private static final int REQ_PERM = 65;
     private final String HUB_SSID_WITH_BRACKET = "Home-Ultimate(";
     //private final String HUB_SSID_WITH_BRACKET1 = "Home-Plus(";
-    private AlertFragment alertDialog;
-    private ProgressFragment progress;
+    private MessageAlertDialog alertDialog;
+    private MessageProgressDialog progress;
 
     public ManualFragment() {
     }
@@ -42,8 +42,8 @@ public class ManualFragment extends NavigationXFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alertDialog = new AlertFragment();
-        progress = new ProgressFragment();
+        alertDialog = new MessageAlertDialog(requireActivity());
+        progress = new MessageProgressDialog(requireActivity());
     }
 
     @Override

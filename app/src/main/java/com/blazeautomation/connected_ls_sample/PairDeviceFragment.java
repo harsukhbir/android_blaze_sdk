@@ -50,8 +50,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class PairDeviceFragment extends NavigationXFragment {
     String categoryId = null;
-    private ProgressFragment progress;
-    private AlertFragment alert;
+    private MessageProgressDialog progress;
+    private MessageAlertDialog alert;
     private String nodeId, bOneId;
     private View add_lay;
     private TextView b_one_id, node_id;
@@ -71,8 +71,8 @@ public class PairDeviceFragment extends NavigationXFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progress = new ProgressFragment();
-        alert = new AlertFragment();
+        progress = new MessageProgressDialog(requireActivity());
+        alert = new MessageAlertDialog(requireActivity());
     }
 
     @Override

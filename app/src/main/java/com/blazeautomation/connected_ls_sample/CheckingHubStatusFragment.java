@@ -15,14 +15,14 @@ import com.BlazeAutomation.ConnectedLS.BlazeResponse;
 import com.BlazeAutomation.ConnectedLS.BlazeSDK;
 
 public class CheckingHubStatusFragment extends NavigationXFragment {
-    private AlertFragment alert;
-    private ProgressFragment progress;
+    private MessageAlertDialog alert;
+    private MessageProgressDialog progress;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
-        progress = new ProgressFragment();
+        alert = new MessageAlertDialog(requireContext());
+        progress = new MessageProgressDialog(requireContext());
     }
 
     @Nullable

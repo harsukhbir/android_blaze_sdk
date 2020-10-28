@@ -17,15 +17,15 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ForgotFragment extends NavigationXFragment {
     boolean force = false;
-    private AlertFragment alert;
-    private ProgressFragment progress;
+    private MessageAlertDialog alert;
+    private MessageProgressDialog progress;
     private String code;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
-        progress = new ProgressFragment();
+        alert = new MessageAlertDialog(requireActivity());
+        progress = new MessageProgressDialog(requireActivity());
     }
 
     @Nullable

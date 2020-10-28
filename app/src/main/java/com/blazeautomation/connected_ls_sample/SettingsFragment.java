@@ -19,8 +19,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 
 public class SettingsFragment extends NavigationXFragment {
-    private AlertFragment alert;
-    private ProgressFragment progress;
+    private MessageAlertDialog alert;
+    private MessageProgressDialog progress;
     private AppCompatToggleButton btnBleEnable;
 
     public SettingsFragment() {
@@ -29,8 +29,8 @@ public class SettingsFragment extends NavigationXFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
-        progress = new ProgressFragment();
+        alert = new MessageAlertDialog(requireActivity());
+        progress = new MessageProgressDialog(requireActivity());
     }
 
     @Override
@@ -211,13 +211,13 @@ public class SettingsFragment extends NavigationXFragment {
     private void forceDeleteAllDevices(DeviceType deviceType) {
         alert.setOkButtonListener("YES", v -> deleteDevices(deviceType, true));
         alert.setCancelButtonListener("No", null);
-        alert.showAlertMessage(getChildFragmentManager(), "Hub is offline. Do you want to delete all devices from cloud?");
+        alert.showAlertMessage(getChildFragmentManager(), "Hub is offline. Do you want to delete all devices from cloud?", true);
     }
 
     private void forceDelete() {
         alert.setOkButtonListener("YES", v -> deleteHub(true));
         alert.setCancelButtonListener("No", null);
-        alert.showAlertMessage(getChildFragmentManager(), "Hub is offline. Do you want to force delete the hub?");
+        alert.showAlertMessage(getChildFragmentManager(), "Hub is offline. Do you want to force delete the hub?", true);
     }
 
     private void deleteHub(boolean force) {

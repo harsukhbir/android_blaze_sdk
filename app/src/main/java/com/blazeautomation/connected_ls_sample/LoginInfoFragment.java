@@ -18,8 +18,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginInfoFragment extends NavigationXFragment {
 
-    private AlertFragment alert;
-    private ProgressFragment progress;
+    private MessageAlertDialog alert;
+    private MessageProgressDialog progress;
 
     public LoginInfoFragment() {
     }
@@ -27,8 +27,8 @@ public class LoginInfoFragment extends NavigationXFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
-        progress = new ProgressFragment();
+        alert = new MessageAlertDialog(requireActivity());
+        progress = new MessageProgressDialog(requireActivity());
     }
 
     @Override

@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ManualSSIDFragment extends NavigationXFragment {
     private static final int MAX_SSID_LENGTH = 32;
-    private AlertFragment alert;
+    private MessageAlertDialog alert;
 
     public ManualSSIDFragment() {
     }
@@ -24,7 +24,7 @@ public class ManualSSIDFragment extends NavigationXFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
+        alert = new MessageAlertDialog(requireActivity());
     }
 
     @Override

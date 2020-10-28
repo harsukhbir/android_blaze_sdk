@@ -27,6 +27,10 @@ android {
 dependencies {
     def room_version = "1.1.1"
 
+    // crash report
+    def acraVersion = '5.7.0'
+    implementation "ch.acra:acra-mail:$acraVersion"
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.0'

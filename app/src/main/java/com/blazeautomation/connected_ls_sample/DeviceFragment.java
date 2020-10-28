@@ -25,8 +25,8 @@ import java.util.Locale;
 
 
 public class DeviceFragment extends NavigationXFragment implements BlazeSDKListener {
-    private ProgressFragment progress;
-    private AlertFragment alert;
+    private MessageProgressDialog progress;
+    private MessageAlertDialog alert;
     private TextView text1, text2, text3;
     private Handler handler;
     private BlazeDevice device;
@@ -38,8 +38,8 @@ public class DeviceFragment extends NavigationXFragment implements BlazeSDKListe
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler = new Handler();
-        progress = new ProgressFragment();
-        alert = new AlertFragment();
+        progress = new MessageProgressDialog(requireActivity());
+        alert = new MessageAlertDialog(requireActivity());
     }
 
     @Override

@@ -16,15 +16,15 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class ResetFragment extends NavigationXFragment {
-    private AlertFragment alert;
-    private ProgressFragment progress;
+    private MessageAlertDialog alert;
+    private MessageProgressDialog progress;
     boolean force = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
-        progress = new ProgressFragment();
+        alert = new MessageAlertDialog(requireActivity());
+        progress = new MessageProgressDialog(requireActivity());
     }
 
     @Nullable
@@ -56,11 +56,14 @@ public class ResetFragment extends NavigationXFragment {
                 @Override
                 public void onSuccess(BlazeResponse blazeResponse) {
                     progress.dismissProgress();
+                    alert.setCancelButtonVisibility(View.GONE);
+
                     if (blazeResponse != null && blazeResponse.getStatus()) {
                         model.clearHubDetails();
                         alert.setOkButtonListener(getString(R.string.ok), v -> gotoF(R.id.action_to_nav_hub_list));
                         alert.showAlertMessage(getChildFragmentManager(), "Hub has been reset successfully");
                     } else {
+                        alert.setOkButtonListener(R.string.ok, null);
                         alert.showAlertMessage(getChildFragmentManager(), "Please enter a valid OTP");
                     }
                 }

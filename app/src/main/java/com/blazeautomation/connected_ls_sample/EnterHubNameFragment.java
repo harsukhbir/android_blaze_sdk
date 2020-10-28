@@ -31,8 +31,8 @@ import retrofit2.Response;
 
 
 public class EnterHubNameFragment extends NavigationXFragment {
-    private AlertFragment alert;
-    private ProgressFragment progress;
+    private MessageAlertDialog alert;
+    private MessageProgressDialog progress;
     private  String hub_name="",hub_id="";
     private String token = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJYelM3Y0tka1VXRm9mWVZUR2pYM0ZIbVVNSVQ1cnpGd2k2TW5LQktmYnI0In0.eyJleHAiOjE2MDI3NzQ2NTMsImlhdCI6MTYwMjc3Mjg1MywiYXV0aF90aW1lIjoxNjAyNzYxMzY3LCJqdGkiOiIwNmZhZmIxNi0yYjY5LTQwOTktYmU2ZS0yNDgyZmY5ZGMyMDciLCJpc3MiOiJodHRwczovL2F1dGguZGV2LmRhdGFkcml2ZW5jYXJlLm5ldC9hdXRoL3JlYWxtcy9kZGMiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzVjMDhhOWEtNTBhYy00NGMyLTk5YTYtMmE4OWU0MjkzODE4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZGRjLXdlYiIsIm5vbmNlIjoiMGRkZTk1MGMtMjM4My00Zjc4LThhMWEtMjhkZGQ3NzNhYmY1Iiwic2Vzc2lvbl9zdGF0ZSI6IjE5OWQ2N2QwLTU5NzctNGY4NC04ZGM2LTM2MmM5OGQ1MjdiZCIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9hZG1pbi5kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cHM6Ly9kZXYuZGF0YWRyaXZlbmNhcmUubmV0IiwiaHR0cDovL2xvY2FsaG9zdDozMDAxIiwiaHR0cDovL2xvY2FsaG9zdDozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwic3VwZXJBZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicHJlZmVycmVkX3VzZXJuYW1lIjoia2FyZWVtIn0.YCfJsM4ZXKe2A2EJ401lKInb4XxJxDFc2Nz4xaQOIJr78oqcJ6-rBPpZa16KFIBIw_kF0itL_EBMlv23gMyrum48I2I18ZOLvq8HRSHfPTtiQ-hbcbe3GxPkCzY-_P2PulySdc3Pd_ShISv8h4SECnyupOZ7bHEju54ikhTyeN_oAxY3IdIjQ6xbqtGK9JT6fZnLlYo7xZufEn84FAiMN6nGLGBKZe2vE-bniuUyA_k_SHkWL-e8VGwi0ZJfIh5Dt7gpxfKmVNhUPxXjNOnpOjTb-0rUSPFh7WrfT5La2xpX3Es-Mtd0YjaSishD5e6-e37_Pt2tiT35wNDVAF643g";
     public EnterHubNameFragment() {
@@ -41,8 +41,8 @@ public class EnterHubNameFragment extends NavigationXFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
-        progress = new ProgressFragment();
+        alert = new MessageAlertDialog(requireActivity());
+        progress = new MessageProgressDialog(requireActivity());
     }
 
     @Override

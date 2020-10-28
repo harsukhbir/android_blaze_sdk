@@ -26,8 +26,8 @@ public class SSIDFragment extends NavigationXFragment {
     private static final int MAX_SSID_PWD_LENGTH = 64;
     private AppCompatTextView ssidName;
     private AppCompatButton confirm;
-    private ProgressFragment progressDialog;
-    private AlertFragment alertDialog;
+    private MessageProgressDialog progressDialog;
+    private MessageAlertDialog alertDialog;
 
     public SSIDFragment() {
     }
@@ -35,8 +35,8 @@ public class SSIDFragment extends NavigationXFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressDialog = new ProgressFragment();
-        alertDialog = new AlertFragment();
+        progressDialog = new MessageProgressDialog(requireActivity());
+        alertDialog = new MessageAlertDialog(requireActivity());
     }
 
     @Override
@@ -111,14 +111,12 @@ public class SSIDFragment extends NavigationXFragment {
                         if (!model.isInSetup) {
                             alertDialog.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
                         } else
-                            alertDialog.showAlertMessage(getChildFragmentManager(), getString(R.string.app_name),
-                                    getString(R.string.connect_mobile_to_home_msg));
+                            alertDialog.showAlertMessage(getChildFragmentManager(), getString(R.string.connect_mobile_to_home_msg));
                         alertDialog.setOkButtonListener(getString(R.string.ok), v -> gotoF(R.id.action_nav_ssid_to_nav_hub_status));
                     }
 
                     @Override
                     public void onError(BlazeResponse blazeResponse) {
-
                         progressDialog.dismissProgress();
                         alertDialog.setOkButtonListener(getString(R.string.ok), model.isInSetup ? v -> goToSettings() : null);
                         alertDialog.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());

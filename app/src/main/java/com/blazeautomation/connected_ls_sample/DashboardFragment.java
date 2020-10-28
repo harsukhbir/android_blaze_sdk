@@ -23,18 +23,18 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 
 public class DashboardFragment extends NavigationXFragment {
-    private ProgressFragment progress;
+    private MessageProgressDialog progress;
     private Handler handler;
     private HubAdapter adapter;
     private ArrayList<BlazeDevice> list = new ArrayList<>();
-    private AlertFragment alert;
+    private MessageAlertDialog alert;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler = new Handler(Looper.getMainLooper());
-        progress = new ProgressFragment();
-        alert = new AlertFragment();
+        progress = new MessageProgressDialog(requireActivity());
+        alert = new MessageAlertDialog(requireActivity());
         adapter = new HubAdapter(context, list);
     }
 

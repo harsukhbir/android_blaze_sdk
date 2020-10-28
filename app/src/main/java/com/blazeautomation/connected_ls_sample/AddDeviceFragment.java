@@ -19,8 +19,8 @@ public class AddDeviceFragment extends NavigationXFragment {
     public static final String ZIGBEE_SOS = "ZB10";
     public static final String ZIGBEE_MOTION = "ZB00";
     public static final String ZIGBEE_TEMP_HUMIDITY = "ZB02";
-    private ProgressFragment progress;
-    private AlertFragment alert;
+    private MessageProgressDialog progress;
+    private MessageAlertDialog alert;
 
     public AddDeviceFragment() {
     }
@@ -28,8 +28,8 @@ public class AddDeviceFragment extends NavigationXFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progress = new ProgressFragment();
-        alert = new AlertFragment();
+        progress = new MessageProgressDialog(requireContext());
+        alert = new MessageAlertDialog(requireContext());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AddDeviceFragment extends NavigationXFragment {
             pairDevice(ZIGBEE_MOTION, "hallway","motion","motionv1");
         });
         view.findViewById(R.id.kitchen).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_MOTION, "kitchen","motion","motionv1");
+            pairDevice(ZIGBEE_MOTION, "dining room","motion","motionv1");
         });
         view.findViewById(R.id.front_door).setOnClickListener(v -> {
             pairDevice(ZIGBEE_DOOR, "frontdoor","door","doorv1");
@@ -63,7 +63,7 @@ public class AddDeviceFragment extends NavigationXFragment {
             pairDevice(ZIGBEE_DOOR, "backdoor","door","doorv1");
         });
         view.findViewById(R.id.fridge).setOnClickListener(v -> {
-            pairDevice(ZIGBEE_DOOR, "fridge","door","door");
+            pairDevice(ZIGBEE_DOOR, "fridge","door","doorv1");
         });
         view.findViewById(R.id.bathroom_humidity).setOnClickListener(v -> {
             pairDevice(ZIGBEE_TEMP_HUMIDITY, "bathroom","temp","tempv1");
@@ -74,7 +74,7 @@ public class AddDeviceFragment extends NavigationXFragment {
 
     }
 
-    private void pairDevice(String cat_type, String location,String type,String hub_model) {
+    private void pairDevice(String cat_type, String location,String type,String sensor_model) {
         progress.showProgress(getChildFragmentManager(), getString(R.string.please_wait));
         BlazeSDK.checkHubStatus(model.hubId, new BlazeCallBack() {
             @Override
@@ -84,7 +84,7 @@ public class AddDeviceFragment extends NavigationXFragment {
                 b.putString("cat_type", cat_type);
                 b.putString("location", location);
                 b.putString("type", type);
-                b.putString("hub_model", hub_model);
+                b.putString("sensor_model", sensor_model);
                 gotoF(R.id.action_nav_add_to_nav_pair, b);
             }
 

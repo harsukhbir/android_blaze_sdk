@@ -10,8 +10,14 @@ import android.view.WindowManager;
 
 import com.BlazeAutomation.ConnectedLS.BlazeSDK;
 
+import org.acra.ACRA;
+import org.acra.annotation.AcraCore;
+import org.acra.annotation.AcraMailSender;
+
 import java.io.File;
 
+@AcraCore(buildConfigClass = BuildConfig.class)
+@AcraMailSender(mailTo = "mrethers@ebcubes.com")
 public class MainApp extends Application {
 
     @Override
@@ -20,4 +26,9 @@ public class MainApp extends Application {
         BlazeSDK.init(this, "b501cd4d-bf62-4e26-a383-31827fd250a6", "021f6589-130b-4e3f-99ef-e2c3b4944cc7");
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        ACRA.init(this);
+    }
 }

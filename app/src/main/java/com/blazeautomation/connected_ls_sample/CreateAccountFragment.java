@@ -22,8 +22,8 @@ public class CreateAccountFragment extends NavigationXFragment {
 
     private static final String TAG = "_CREATE_ACCOUNT";
     private String first_name_str, last_name_str, phone_str, pwd_str, mail_str;
-    private AlertFragment alert;
-    private ProgressFragment progress;
+    private MessageAlertDialog alert;
+    private MessageProgressDialog progress;
 
     public CreateAccountFragment() {
     }
@@ -31,8 +31,8 @@ public class CreateAccountFragment extends NavigationXFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
-        progress = new ProgressFragment();
+        alert = new MessageAlertDialog(requireContext());
+        progress = new MessageProgressDialog(requireContext());
     }
 
     @Override

@@ -12,16 +12,16 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 public class WelcomeFragment extends NavigationXFragment {
-    private AlertFragment alert;
-    private ProgressFragment progress;
+    private MessageAlertDialog alert;
+    private MessageProgressDialog progress;
 
     private static final int REQ_PERM = 65;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alert = new AlertFragment();
-        progress = new ProgressFragment();
+        alert = new MessageAlertDialog(requireActivity());
+        progress = new MessageProgressDialog(requireActivity());
     }
 
     @Nullable

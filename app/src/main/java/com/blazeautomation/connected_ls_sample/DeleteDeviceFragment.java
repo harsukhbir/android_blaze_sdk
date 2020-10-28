@@ -17,8 +17,8 @@ import com.BlazeAutomation.ConnectedLS.DeviceType;
 
 public class DeleteDeviceFragment extends NavigationXFragment {
     String categoryId = null, bone_id;
-    private ProgressFragment progress;
-    private AlertFragment alert;
+    private MessageProgressDialog progress;
+    private MessageAlertDialog alert;
 
     public DeleteDeviceFragment() {
     }
@@ -26,8 +26,8 @@ public class DeleteDeviceFragment extends NavigationXFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progress = new ProgressFragment();
-        alert = new AlertFragment();
+        progress = new MessageProgressDialog(requireActivity());
+        alert = new MessageAlertDialog(requireActivity());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class DeleteDeviceFragment extends NavigationXFragment {
     private void forceDelete() {
         alert.setOkButtonListener("YES", v -> deleteDevice(true));
         alert.setCancelButtonListener("No", null);
-        alert.showAlertMessage(getChildFragmentManager(), "Device/Hub is offline. Do you want to force delete the Device?");
+        alert.showAlertMessage(getChildFragmentManager(), "Device/Hub is offline. Do you want to force delete the Device?", true);
     }
 
     private void deleteDevice(boolean forceDelete) {
