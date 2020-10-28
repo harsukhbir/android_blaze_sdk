@@ -87,7 +87,7 @@ public class ManualFragment extends NavigationXFragment {
             return;
         }
         if (!ssid.contains(HUB_SSID_WITH_BRACKET)) {
-            Toast.makeText(context, "Please connect to Home-Ultimate Hub.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Please connect to Home-Ultimate Wifi (Currently on " + ssid + ")", Toast.LENGTH_LONG).show();
             return;
         }
         String[] split = ssid.split("\\(");
