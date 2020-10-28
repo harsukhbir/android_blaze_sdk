@@ -92,18 +92,8 @@ public class AddDeviceFragment extends NavigationXFragment {
             public void onError(BlazeResponse blazeResponse) {
 
                 progress.dismissProgress();
-                Bundle b = new Bundle();
-                b.putString("cat_type", cat_type);
-                b.putString("location", location);
-                b.putString("type", type);
-                b.putString("hub_model", hub_model);
-                gotoF(R.id.action_nav_add_to_nav_pair, b);
-
-                /**
-                progress.dismissProgress();
                 Loggers.error("_pair_error", blazeResponse);
                 alert.showAlertMessage(getChildFragmentManager(), blazeResponse.getMessage());
-                 */
             }
         });
     }

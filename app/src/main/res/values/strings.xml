@@ -66,4 +66,5 @@
     <string name="edit">Edit</string>
     <string name="temp_dynamic">Temperature: %s℃</string>
     <string name="interval_5min_999">Interval (5min-999)</string>
+    <string name="please_wait">Please wait..</string>
 </resources>
